@@ -26,13 +26,18 @@ services:
         container_name: db
         image: mysql
         restart: always
-        build:
-            context: ./
-            dockerfile: Df
+#        build:
+#            context: ./
+#            dockerfile: Df
         environment:
-            MYSQL_DATABASE: appDB
-            MYSQL_USER: user
-            MYSQL_PASSWORD: password
-            MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+#            MYSQL_DATABASE: appDB
+#            MYSQL_USER: user
+#            MYSQL_PASSWORD: password
+            MYSQL_ROOT_PASSWORD: password
+        volumes:
+            - ./:/docker-entrypoint-initdb.d
+            - db_volume:/var/lib/mysql
         ports:
             - "9906:3306"
+volumes:
+    db_volume:
