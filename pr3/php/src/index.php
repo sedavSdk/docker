@@ -46,13 +46,13 @@
         <li class="product-wrapper">
             <a href="#" class="product">
                 <div class="dop">
-                    <span class="buy" onclick="location.href='p1.html'"><p class='pp'>Купить за {$row['price']}</p></span>
+                    <span class="buy"><p class='pp'>Купить за {$row['price']}</p></span>
                     <p class="annotation">$f</p></div>
                 <div class="product-photo">
                     <img src={$row['image']} alt="">
                 </div>
             </a>
-        </li>;
+        </li>
         EOT;
         }
         ?>
