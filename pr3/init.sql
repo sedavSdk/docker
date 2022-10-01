@@ -36,3 +36,6 @@ SELECT * FROM (SELECT '199', 'texts/t4.txt', 'images/4.jpg') AS tmp
 WHERE NOT EXISTS (
     SELECT price FROM books WHERE price = '199' AND description = 'texts/t4.txt' AND image = 'images/4.jpg'
 ) LIMIT 1;
+
+CREATE TABLE IF NOT EXISTS users (user varchar(191) not null, passwd varchar(191), primary key (user));
+INSERT INTO users VALUE ('sedav3', '{SHA}QL0AFWMIX8NRZTKeof9cXsvbvu8=');

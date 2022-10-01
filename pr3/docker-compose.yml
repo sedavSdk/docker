@@ -1,39 +1,38 @@
-version: '3.8'
+version: '3'
 services:
     
     static_s:
         image: nginx
         volumes:
             - ./php_for_nginx/conf/:/etc/nginx/conf.d
-            - ./php_for_nginx/src:/usr/share/nginx/
+            - ./php/src:/usr/share/nginx/
         ports:
             - "8080:80"
         environment:
             - NGINX_PORT=80
+        depends_on:
+            - php-apache-environment
 
     php-apache-environment:
         container_name: php-apache
         build:
-            context: ./php
+            context: ./php/src
             dockerfile: Dockerfile
+        ports:
+            - "80:80"
         depends_on:
             - db
         volumes:
-            - ./php/src:/var/www/html/
-        ports:
-            - 8000:80
+            - ./php/src:/var/www/pr
+            - ./php/src/private:/var/www/pr/private
+            - ./php/000-default.conf:/etc/apache2/sites-available/000-default.conf
     db:
         container_name: db
         image: mysql
         restart: always
-#        build:
-#            context: ./
-#            dockerfile: Df
         environment:
-#            MYSQL_DATABASE: appDB
-#            MYSQL_USER: user
-#            MYSQL_PASSWORD: password
             MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: appDB
         volumes:
             - ./:/docker-entrypoint-initdb.d
             - db_volume:/var/lib/mysql
